@@ -1,0 +1,45 @@
+main: main.o raster.o model.o render.o font.o psg.o effect.o music.o menu.o clear_qk.o video.o super.o vbl.o isr.o
+	cc68x -g main.o raster.o model.o render.o font.o psg.o effect.o music.o menu.o clear_qk.o video.o super.o vbl.o isr.o -o game.tos
+
+main.o: main.c raster.h render.h model.h font.h
+	cc68x -g -c main.c
+
+raster.o: raster.c raster.h render.h model.h font.h
+	cc68x -g -c raster.c
+
+model.o: model.c raster.h render.h model.h font.h
+	cc68x -g -c model.c
+
+render.o: render.c raster.h render.h model.h font.h
+	cc68x -g -c render.c
+
+font.o: font.c raster.h render.h model.h font.h
+	cc68x -g -c font.c
+
+psg.o: psg.c psg.h 
+	cc68x -g -c psg.c
+
+effect.o: effect.c effect.h psg.h model.h
+	cc68x -g -c effect.c
+
+music.o: music.c music.h psg.h
+	cc68x -g -c music.c
+
+menu.o: menu.c raster.h render.h model.h font.h menu.h
+	cc68x -g -c menu.c
+
+
+clear_qk.o: clear_qk.s raster.h
+	gen -D -L2 clear_qk.s
+	
+super.o: super.s 
+	gen -D -L2 super.s
+
+video.o: video.s raster.h
+	gen -D -L2 video.s
+
+vbl.o: vbl.s 
+	gen -D -L2 vbl.s
+
+isr.o: isr.c isr.h
+	cc68x -g -c isr.c
